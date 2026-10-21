@@ -1,0 +1,9 @@
+# Khong bao gio commit chung chi, private key, file bi mat
+*.pem
+*.key
+*-key
+*-key.pub
+*.p12
+.env
+.env.*
+secrets/

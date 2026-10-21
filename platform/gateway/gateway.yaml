@@ -1,0 +1,24 @@
+# 1 Gateway (= 1 Load Balancer cua Google) dung chung cho staging va prod.
+# Nhat gan HTTPRoute cua tung moi truong vao Gateway nay (hostnames:
+#   nhom8.hocmang.io.vn -> prod, nhom8-staging.hocmang.io.vn -> staging).
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: boutique-gw
+  namespace: gateway-infra
+spec:
+  gatewayClassName: gke-l7-global-external-managed
+  addresses:
+    - type: NamedAddress
+      value: boutique-ip            # IP tinh 136.82.160.26
+  listeners:
+    - name: https
+      protocol: HTTPS
+      port: 443
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: cloudflare-origin-cert   # Secret tao o buoc 4.1-5, khong nam trong Git
+      allowedRoutes:
+        namespaces:
+          from: All

@@ -1,0 +1,32 @@
+# Chinh sach registry: Audit o staging (chi ghi nhan), prod chuyen Enforce o buoc 7.1
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: restrict-image-registries
+spec:
+  background: true
+  rules:
+    - name: staging-registries
+      match:
+        any:
+          - resources: {kinds: [Pod], namespaces: [staging]}
+      validate:
+        failureAction: Audit
+        message: "Staging chi chay image tu Artifact Registry cua nhom, image goc cua Google, redis hoac busybox."
+        pattern:
+          spec:
+            =(initContainers):
+              - image: "asia-southeast1-docker.pkg.dev/project-d833ce9b-518c-4957-bad/app/* | us-central1-docker.pkg.dev/google-samples/* | busybox:*"
+            containers:
+              - image: "asia-southeast1-docker.pkg.dev/project-d833ce9b-518c-4957-bad/app/* | us-central1-docker.pkg.dev/google-samples/* | redis:*"
+    - name: prod-registries
+      match:
+        any:
+          - resources: {kinds: [Pod], namespaces: [prod]}
+      validate:
+        failureAction: Audit   # buoc 7.1 doi thanh Enforce
+        message: "Prod chi chay image da qua CI trong Artifact Registry cua nhom (va redis)."
+        pattern:
+          spec:
+            containers:
+              - image: "asia-southeast1-docker.pkg.dev/project-d833ce9b-518c-4957-bad/app/* | redis:*"
