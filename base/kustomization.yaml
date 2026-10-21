@@ -1,0 +1,5 @@
+# Online Boutique v0.10.7 - manifest goc cua Google (release/kubernetes-manifests.yaml)
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - kubernetes-manifests.yaml

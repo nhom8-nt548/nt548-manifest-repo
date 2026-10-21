@@ -1,0 +1,13 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: frontend-route
+spec:
+  parentRefs:
+    - name: boutique-gw
+      namespace: gateway-infra
+  hostnames: ["nhom8-staging.hocmang.io.vn"]
+  rules:
+    - backendRefs:
+        - name: frontend
+          port: 80

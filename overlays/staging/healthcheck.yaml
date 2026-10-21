@@ -1,0 +1,16 @@
+# Load Balancer kiem tra /_healthz (trang chu "/" goi nhieu service, de bao loi gia)
+apiVersion: networking.gke.io/v1
+kind: HealthCheckPolicy
+metadata:
+  name: frontend-hc
+spec:
+  default:
+    config:
+      type: HTTP
+      httpHealthCheck:
+        requestPath: /_healthz
+        port: 8080
+  targetRef:
+    group: ""
+    kind: Service
+    name: frontend

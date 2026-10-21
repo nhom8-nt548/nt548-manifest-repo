@@ -16,9 +16,9 @@ spec:
         pattern:
           spec:
             =(initContainers):
-              - image: "asia-southeast1-docker.pkg.dev/project-d833ce9b-518c-4957-bad/app/* | us-central1-docker.pkg.dev/google-samples/* | busybox:*"
+              - image: "asia-southeast1-docker.pkg.dev/project-d833ce9b-518c-4957-bad/app/* | us-central1-docker.pkg.dev/google-samples/* | us-central1-docker.pkg.dev/online-boutique-ci/* | busybox:*"
             containers:
-              - image: "asia-southeast1-docker.pkg.dev/project-d833ce9b-518c-4957-bad/app/* | us-central1-docker.pkg.dev/google-samples/* | redis:*"
+              - image: "asia-southeast1-docker.pkg.dev/project-d833ce9b-518c-4957-bad/app/* | us-central1-docker.pkg.dev/google-samples/* | us-central1-docker.pkg.dev/online-boutique-ci/* | redis:*"
     - name: prod-registries
       match:
         any:
