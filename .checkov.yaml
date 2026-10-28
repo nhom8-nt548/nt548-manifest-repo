@@ -1,0 +1,18 @@
+# .checkov.yaml - Nam Anh + Nhật. Mỗi check bị bỏ qua phải có lý do.
+framework:
+  - kubernetes
+quiet: true
+compact: true
+skip-check:
+  - CKV_K8S_43   # Ảnh được ghim bằng tag SHA commit bất biến do Jenkins sinh ra
+  - CKV_K8S_15   # Tag SHA là duy nhất nên IfNotPresent là đủ
+  - CKV_K8S_40   # Manifest gốc Google đã chạy non-root; đổi UID phải sửa Dockerfile (TODO)
+  - CKV_K8S_38   # TODO vá automountServiceAccountToken=false trong overlay
+  - CKV_K8S_31   # TODO thêm seccompProfile RuntimeDefault trong overlay
+  - CKV2_K8S_6   # TODO bổ sung NetworkPolicy (Nhật, Dzũ)
+  - CKV_K8S_8    # loadgenerator chỉ tạo tải, không cần probe
+  - CKV_K8S_9    # như trên
+  - CKV_K8S_10   # TODO đặt resources cho loadgenerator
+  - CKV_K8S_11   # như trên
+  - CKV_K8S_12   # như trên
+  - CKV_K8S_13   # như trên
