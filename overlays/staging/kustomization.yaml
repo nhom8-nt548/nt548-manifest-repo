@@ -2,16 +2,50 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: staging
 resources:
-  - ../../base
-  - httproute.yaml
-  - healthcheck.yaml
-patches:
+- ../../base
+- httproute.yaml
+- healthcheck.yaml
   # Bo Service LoadBalancer cua ban goc: dung chung Gateway boutique-gw
-  - patch: |-
-      $patch: delete
-      apiVersion: v1
-      kind: Service
-      metadata:
-        name: frontend-external
-  - path: probe-emailservice.yaml
-  - path: probe-recommendationservice.yaml
+patches:
+- patch: |-
+    $patch: delete
+    apiVersion: v1
+    kind: Service
+    metadata:
+      name: frontend-external
+- path: probe-emailservice.yaml
+- path: probe-recommendationservice.yaml
+images:
+- name: us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/adservice
+  newName: asia-southeast1-docker.pkg.dev/project-d833ce9b-518c-4957-bad/boutique/adservice
+  newTag: 2b8d4e4
+- name: us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/cartservice
+  newName: asia-southeast1-docker.pkg.dev/project-d833ce9b-518c-4957-bad/boutique/cartservice
+  newTag: 2b8d4e4
+- name: us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/checkoutservice
+  newName: asia-southeast1-docker.pkg.dev/project-d833ce9b-518c-4957-bad/boutique/checkoutservice
+  newTag: 2b8d4e4
+- name: us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/currencyservice
+  newName: asia-southeast1-docker.pkg.dev/project-d833ce9b-518c-4957-bad/boutique/currencyservice
+  newTag: 2b8d4e4
+- name: us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/emailservice
+  newName: asia-southeast1-docker.pkg.dev/project-d833ce9b-518c-4957-bad/boutique/emailservice
+  newTag: 2b8d4e4
+- name: us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/frontend
+  newName: asia-southeast1-docker.pkg.dev/project-d833ce9b-518c-4957-bad/boutique/frontend
+  newTag: 2b8d4e4
+- name: us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/loadgenerator
+  newName: asia-southeast1-docker.pkg.dev/project-d833ce9b-518c-4957-bad/boutique/loadgenerator
+  newTag: 2b8d4e4
+- name: us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/paymentservice
+  newName: asia-southeast1-docker.pkg.dev/project-d833ce9b-518c-4957-bad/boutique/paymentservice
+  newTag: 2b8d4e4
+- name: us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/productcatalogservice
+  newName: asia-southeast1-docker.pkg.dev/project-d833ce9b-518c-4957-bad/boutique/productcatalogservice
+  newTag: 2b8d4e4
+- name: us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/recommendationservice
+  newName: asia-southeast1-docker.pkg.dev/project-d833ce9b-518c-4957-bad/boutique/recommendationservice
+  newTag: 2b8d4e4
+- name: us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/shippingservice
+  newName: asia-southeast1-docker.pkg.dev/project-d833ce9b-518c-4957-bad/boutique/shippingservice
+  newTag: 2b8d4e4
